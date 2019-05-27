@@ -1,8 +1,10 @@
-*{
-  margin:0;
+$days: "mon" 1, "tue" 2, "wed" 3, "thu" 4, "fri" 5, "sat" 6, "sun" 7;
+
+* {
+  margin: 0;
 }
 
-html,body {
+body {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,10 +16,10 @@ html,body {
 .calendar {
   display: grid;
   grid-gap: 1px;
-  grid-template-columns:repeat(7, auto);
+  grid-template-columns: repeat(7, auto);
 }
 
-.calendar>div {
+.calendar > div {
   position: relative;
   height: 100px;
   width: 100px;
@@ -26,80 +28,62 @@ html,body {
 }
 
 
-.calendar>div:after {
+.calendar > div:after {
   position: absolute;
-  top:32px;
+  top: 32px;
 }
 
-.calendar>div:hover {
+.calendar > div:hover {
   cursor: pointer;
   animation: moveUp 0.5s linear forwards;
 }
 
 @keyframes moveUp {
-  from{
-    top:0;
+  from {
+    top: 0;
   }
-  to{
-    top:-20px;
+  to {
+    top: -20px;
     background-color: pink;
   }
 }
 
-.calendar-mon>div:first-child {
-  grid-column: 1;
-}
-
-.calendar-tue>div:first-child {
-  grid-column: 2;
-}
-
-.calendar-wed>div:first-child {
-  grid-column: 3;
-}
-
-.calendar-thu>div:first-child {
-  grid-column: 4;
-}
-.calendar-fri>div:first-child {
-  grid-column: 5;
-}
-.calendar-sat>div:first-child {
-  grid-column: 6;
-}
-.calendar-sun>div:first-child {
-  grid-column: 7;
+@each $day, $column in $days {
+  .calendar-#{$day} > div:first-child {
+    grid-column: $column;
+  }
 }
 
 @for $i from 1 through 9 {
-  .calendar>div:nth-child(#{$i}):after {
-   content: '#{$i}';
-    left: 41px;
+  .calendar > div:nth-child(#{$i}):after {
+    content: '#{$i}';
+    //left: 41px;
 
   }
 }
+
 @for $i from 10 through 31 {
-  .calendar>div:nth-child(#{$i}):after {
+  .calendar > div:nth-child(#{$i}):after {
     content: '#{$i}';
-    left:33px;
+    //left: 33px;
   }
 }
 
 @for $i from 29 through 31 {
-    .calendar-28>div:nth-child(#{$i}) {
-      display: none;
-    }
-  }
-
-@for $i from 30 through 31 {
-  .calendar-29>div:nth-child(#{$i}) {
+  .calendar-28 > div:nth-child(#{$i}) {
     display: none;
   }
 }
 
-  .calendar-30>div:last-child {
+@for $i from 30 through 31 {
+  .calendar-29 > div:nth-child(#{$i}) {
     display: none;
   }
+}
+
+.calendar-30 > div:last-child {
+  display: none;
+}
 
 
 
