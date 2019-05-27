@@ -1,4 +1,5 @@
 $days: "mon" 1, "tue" 2, "wed" 3, "thu" 4, "fri" 5, "sat" 6, "sun" 7;
+$cellWidthHeight: 100px;
 
 * {
   margin: 0;
@@ -21,16 +22,18 @@ body {
 
 .calendar > div {
   position: relative;
-  height: 100px;
-  width: 100px;
+  height: $cellWidthHeight;
+  width: $cellWidthHeight;
   background-color: #eeeeee;
   border: 1px solid black;
 }
 
-
 .calendar > div:after {
   position: absolute;
-  top: 32px;
+  text-align: center;
+  width: $cellWidthHeight;
+  height: $cellWidthHeight;
+  line-height: $cellWidthHeight;
 }
 
 .calendar > div:hover {
@@ -54,18 +57,10 @@ body {
   }
 }
 
-@for $i from 1 through 9 {
+@for $i from 1 through 31 {
   .calendar > div:nth-child(#{$i}):after {
     content: '#{$i}';
-    //left: 41px;
 
-  }
-}
-
-@for $i from 10 through 31 {
-  .calendar > div:nth-child(#{$i}):after {
-    content: '#{$i}';
-    //left: 33px;
   }
 }
 
@@ -84,8 +79,3 @@ body {
 .calendar-30 > div:last-child {
   display: none;
 }
-
-
-
-
-
