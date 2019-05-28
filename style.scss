@@ -1,0 +1,81 @@
+$days: "mon" 1, "tue" 2, "wed" 3, "thu" 4, "fri" 5, "sat" 6, "sun" 7;
+$cellWidthHeight: 100px;
+
+* {
+  margin: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-family: Arial;
+  font-size: 30px;
+}
+
+.calendar {
+  display: grid;
+  grid-gap: 1px;
+  grid-template-columns: repeat(7, auto);
+}
+
+.calendar > div {
+  position: relative;
+  height: $cellWidthHeight;
+  width: $cellWidthHeight;
+  background-color: #eeeeee;
+  border: 1px solid black;
+}
+
+.calendar > div:after {
+  position: absolute;
+  text-align: center;
+  width: $cellWidthHeight;
+  height: $cellWidthHeight;
+  line-height: $cellWidthHeight;
+}
+
+.calendar > div:hover {
+  cursor: pointer;
+  animation: moveUp 0.5s linear forwards;
+}
+
+@keyframes moveUp {
+  from {
+    top: 0;
+  }
+  to {
+    top: -20px;
+    background-color: pink;
+  }
+}
+
+@each $day, $column in $days {
+  .calendar-#{$day} > div:first-child {
+    grid-column: $column;
+  }
+}
+
+@for $i from 1 through 31 {
+  .calendar > div:nth-child(#{$i}):after {
+    content: '#{$i}';
+
+  }
+}
+
+@for $i from 29 through 31 {
+  .calendar-28 > div:nth-child(#{$i}) {
+    display: none;
+  }
+}
+
+@for $i from 30 through 31 {
+  .calendar-29 > div:nth-child(#{$i}) {
+    display: none;
+  }
+}
+
+.calendar-30 > div:last-child {
+  display: none;
+}
